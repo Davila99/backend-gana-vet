@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { CategoriaAnimalesService } from './categoria-animales.service';
 import { CreateCategoriaAnimaleDto } from './dto/create-categoria-animale.dto';
 import { UpdateCategoriaAnimaleDto } from './dto/update-categoria-animale.dto';
@@ -28,14 +28,25 @@ export class CategoriaAnimalesController {
     return data;
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoriaAnimalesService.findOne(+id);
+  @Get('/:id')
+  async findOne(@Param('id', ParseIntPipe) id: number ) {
+
+    const categoriaAnimale = await this.categoriaAnimalesService.findOne(id);
+    const data = {
+      data:categoriaAnimale,
+      message:' ok',
+    };
+    return data;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoriaAnimaleDto: UpdateCategoriaAnimaleDto) {
-    return this.categoriaAnimalesService.update(+id, updateCategoriaAnimaleDto);
+  @Patch('/:id')
+  update(@Param('id', ParseIntPipe  ) id: number, @Body() updateCategoriaAnimaleDto: UpdateCategoriaAnimaleDto) {
+    const categoriaAnimale = this.categoriaAnimalesService.update(id, updateCategoriaAnimaleDto);
+    const data = {
+      data:categoriaAnimale,
+      message:'Categoria actualizada correctamente',
+    };
+    return data;
   }
 
   @Delete('/:id')

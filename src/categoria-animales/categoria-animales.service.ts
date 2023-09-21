@@ -19,15 +19,25 @@ export class CategoriaAnimalesService {
  async findAll(): Promise<CategoriaAnimale[]> {
     return await this.categoriaAnimalRepository.find();
   }
-  findOne(id: number) {
-    return `This action returns a #${id} categoriaAnimale`;
+ async findOne(id: number): Promise<CategoriaAnimale> {	
+    const categoriaAnimal = await this.categoriaAnimalRepository.findOne(
+      { where: { id: id } },
+    );
+    return categoriaAnimal;
   }
 
-  update(id: number, updateCategoriaAnimaleDto: UpdateCategoriaAnimaleDto) {
-    return `This action updates a #${id} categoriaAnimale`;
+ async update(id: number, updateCategoriaAnimaleDto: UpdateCategoriaAnimaleDto): Promise<CategoriaAnimale> {
+    const categoriaAnimal = await this.categoriaAnimalRepository.preload({
+      id: id,
+      ...updateCategoriaAnimaleDto,
+    });
+    return this.categoriaAnimalRepository.save(categoriaAnimal);
   }
 
- async remove(id: number) {
-    
+ async remove(id: number): Promise<CategoriaAnimale> {
+    const categoriaAnimal = await this.categoriaAnimalRepository.findOne(
+      { where: { id: id } },
+    );
+    return this.categoriaAnimalRepository.remove(categoriaAnimal);
   }
 }
