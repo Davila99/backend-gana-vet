@@ -7,6 +7,7 @@ import { CategoriaAnimale } from './categoria-animales/entities/categoria-animal
 import { RegistroAnimalesModule } from './registro-animales/registro-animales.module';
 import { RegistroAnimale } from './registro-animales/entities/registro-animale.entity';
 import { ComercioAnimalesModule } from './comercio-animales/comercio-animales.module';
+import { AlimentacionAnimalesModule } from './alimentacion-animales/alimentacion-animales.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -18,7 +19,7 @@ import { ComercioAnimalesModule } from './comercio-animales/comercio-animales.mo
     database: 'ganavet',
     entities: [CategoriaAnimale, RegistroAnimale],
     synchronize: true,
-  }), CategoriaAnimalesModule, RegistroAnimalesModule, ComercioAnimalesModule
+  }), CategoriaAnimalesModule, RegistroAnimalesModule, ComercioAnimalesModule, AlimentacionAnimalesModule
   ],
   controllers: [AppController],
   providers: [AppService],
