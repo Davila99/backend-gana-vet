@@ -8,6 +8,8 @@ import { RegistroAnimalesModule } from './registro-animales/registro-animales.mo
 import { RegistroAnimale } from './registro-animales/entities/registro-animale.entity';
 import { ComercioAnimalesModule } from './comercio-animales/comercio-animales.module';
 import { AlimentacionAnimalesModule } from './alimentacion-animales/alimentacion-animales.module';
+import { ComercioAnimale } from './comercio-animales/entities/comercio-animale.entity';
+import { AlimentacionAnimale } from './alimentacion-animales/entities/alimentacion-animale.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -17,7 +19,7 @@ import { AlimentacionAnimalesModule } from './alimentacion-animales/alimentacion
     username: 'postgres',
     password: 'root',
     database: 'ganavet',
-    entities: [CategoriaAnimale, RegistroAnimale],
+    entities: [CategoriaAnimale, RegistroAnimale,ComercioAnimale,AlimentacionAnimale],
     synchronize: true,
   }), CategoriaAnimalesModule, RegistroAnimalesModule, ComercioAnimalesModule, AlimentacionAnimalesModule
   ],
