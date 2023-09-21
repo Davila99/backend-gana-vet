@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { RazasService } from './razas.service';
 import { CreateRazaDto } from './dto/create-raza.dto';
 import { UpdateRazaDto } from './dto/update-raza.dto';
@@ -8,27 +17,53 @@ export class RazasController {
   constructor(private readonly razasService: RazasService) {}
 
   @Post()
-  create(@Body() createRazaDto: CreateRazaDto) {
-    return this.razasService.create(createRazaDto);
+  async create(@Body() createRazaDto: CreateRazaDto) {
+    const raza = await this.razasService.create(createRazaDto);
+    const data = {
+      data: raza,
+      message: 'Registro creado',
+    };
+    return data;
   }
 
   @Get()
-  findAll() {
-    return this.razasService.findAll();
+ async findAll() {
+   
+  const razas = await this.razasService.findAll();
+  const data = {
+    data: razas,
+    message: 'Registros obtenidos',
+  };
+  return data;
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.razasService.findOne(+id);
+  @Get('/:id')
+ async findOne(@Param('id', ParseIntPipe) id: number) {
+  const raza = await this.razasService.findOne(id);
+  const data = {
+    data: raza,
+    message: 'Registro obtenido',
+  };
+  return data;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRazaDto: UpdateRazaDto) {
-    return this.razasService.update(+id, updateRazaDto);
+  @Patch('/:id')
+  async update(@Param('id', ParseIntPipe) id: string, @Body() updateRazaDto: UpdateRazaDto) {
+    const raza = await this.razasService.update(+id, updateRazaDto);
+    const data = {
+      data: raza,
+      message: 'Registro actualizado',
+    };
+    return data;
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.razasService.remove(+id);
+  @Delete('/:id')
+ async remove(@Param('id') id: number) {
+  const raza = await this.razasService.remove(id);
+  const data = {
+    data: raza,
+    message: 'Registro eliminado exitosamente',
+  };
+  return data;
   }
 }

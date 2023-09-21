@@ -40,7 +40,7 @@ export class CategoriaAnimalesController {
   }
 
   @Patch('/:id')
-  update(@Param('id', ParseIntPipe  ) id: number, @Body() updateCategoriaAnimaleDto: UpdateCategoriaAnimaleDto) {
+ async update(@Param('id', ParseIntPipe  ) id: number, @Body() updateCategoriaAnimaleDto: UpdateCategoriaAnimaleDto) {
     const categoriaAnimale = this.categoriaAnimalesService.update(id, updateCategoriaAnimaleDto);
     const data = {
       data:categoriaAnimale,

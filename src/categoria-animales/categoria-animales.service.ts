@@ -12,8 +12,8 @@ export class CategoriaAnimalesService {
     private categoriaAnimalRepository: Repository<CategoriaAnimale>,
   ) {}  
   async create(CategoriaAnimaleDto: CreateCategoriaAnimaleDto):Promise<CategoriaAnimale> {
-    const ategoriaAnimal = this.categoriaAnimalRepository.create(CategoriaAnimaleDto);
-    return this.categoriaAnimalRepository.save(ategoriaAnimal);
+    const categoriaAnimal = this.categoriaAnimalRepository.create(CategoriaAnimaleDto);
+    return this.categoriaAnimalRepository.save(categoriaAnimal);
   }
 
  async findAll(): Promise<CategoriaAnimale[]> {

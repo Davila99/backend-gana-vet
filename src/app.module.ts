@@ -11,6 +11,7 @@ import { AlimentacionAnimalesModule } from './alimentacion-animales/alimentacion
 import { ComercioAnimale } from './comercio-animales/entities/comercio-animale.entity';
 import { AlimentacionAnimale } from './alimentacion-animales/entities/alimentacion-animale.entity';
 import { RazasModule } from './razas/razas.module';
+import { Raza } from './razas/entities/raza.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -20,7 +21,7 @@ import { RazasModule } from './razas/razas.module';
     username: 'postgres',
     password: 'root',
     database: 'ganavet',
-    entities: [CategoriaAnimale, RegistroAnimale,ComercioAnimale,AlimentacionAnimale],
+    entities: [CategoriaAnimale, RegistroAnimale,ComercioAnimale,AlimentacionAnimale,Raza],
     synchronize: true,
   }), CategoriaAnimalesModule, RegistroAnimalesModule, ComercioAnimalesModule, AlimentacionAnimalesModule, RazasModule
   ],
