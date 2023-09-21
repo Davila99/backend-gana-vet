@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriaAnimalesModule } from './categoria-animales/categoria-animales.module';
 import { CategoriaAnimale } from './categoria-animales/entities/categoria-animale.entity';
 import { RegistroAnimalesModule } from './registro-animales/registro-animales.module';
+import { RegistroAnimale } from './registro-animales/entities/registro-animale.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -14,7 +15,7 @@ import { RegistroAnimalesModule } from './registro-animales/registro-animales.mo
     username: 'postgres',
     password: 'root',
     database: 'ganavet',
-    entities: [CategoriaAnimale],
+    entities: [CategoriaAnimale, RegistroAnimale],
     synchronize: true,
   }), CategoriaAnimalesModule, RegistroAnimalesModule
   ],
