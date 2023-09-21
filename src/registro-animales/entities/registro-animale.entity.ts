@@ -1,4 +1,5 @@
 import { CategoriaAnimale } from 'src/categoria-animales/entities/categoria-animale.entity';
+import { Raza } from 'src/razas/entities/raza.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne } from 'typeorm';
 @Entity()
 export class RegistroAnimale {
@@ -14,8 +15,9 @@ export class RegistroAnimale {
     @Column()
     fechaNacimiento : string;
 
-    @Column()
-    raza : string;
+    
+    @ManyToOne(() => Raza, (razaAnimale) => razaAnimale.raza)
+    razaAnimal: Raza[];
 
     @Column()
     sexo : string;
@@ -38,8 +40,8 @@ export class RegistroAnimale {
     @Column()
     estadoReproductivo : string;
 
-    @ManyToOne(() => CategoriaAnimale, (categoriaAnimale) => categoriaAnimale.categoriaAniaml)
+    @ManyToOne(() => CategoriaAnimale, (categoriaAnimale) => categoriaAnimale.categoriaAnimal)
     
-    categoriaAniaml: CategoriaAnimale[];
+    categoriaAnimal: CategoriaAnimale[];
     
 }

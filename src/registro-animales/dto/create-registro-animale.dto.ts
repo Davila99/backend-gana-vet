@@ -6,6 +6,7 @@ import {
   IsObject,
 } from 'class-validator';
 import { CategoriaAnimale } from 'src/categoria-animales/entities/categoria-animale.entity';
+import { Raza } from 'src/razas/entities/raza.entity';
 export class CreateRegistroAnimaleDto {
   @IsOptional()
   @IsNumberString()
@@ -25,8 +26,8 @@ export class CreateRegistroAnimaleDto {
   fechaNacimiento : string;
 
   @IsNotEmpty()
-  @IsString()
-  raza : string;
+  @IsObject()
+  razaAnimal: Raza[];
 
   @IsNotEmpty()
   @IsString()
@@ -58,6 +59,6 @@ export class CreateRegistroAnimaleDto {
 
   @IsNotEmpty()
   @IsObject()
-  categoriaAniaml: CategoriaAnimale[];
+  categoriaAnimal: CategoriaAnimale[];
 
 }

@@ -8,9 +8,9 @@ export class CategoriaAnimale {
     @Column()
     descripcion: string;
 
-    @OneToMany(() => RegistroAnimale, (registroAnimale) => registroAnimale.color)
+    @OneToMany(() => RegistroAnimale, (registroAnimale) => registroAnimale.categoriaAnimal)
     registroAnimale: RegistroAnimale[];
   
-    categoriaAniaml: CategoriaAnimale[];
+    categoriaAnimal: CategoriaAnimale[];
 }
 
