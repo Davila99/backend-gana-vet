@@ -3,7 +3,9 @@ import {
   IsString,
   IsNumberString,
   IsOptional,
+  IsObject,
 } from 'class-validator';
+import { CategoriaAnimale } from 'src/categoria-animales/entities/categoria-animale.entity';
 export class CreateRegistroAnimaleDto {
   @IsOptional()
   @IsNumberString()
@@ -12,6 +14,11 @@ export class CreateRegistroAnimaleDto {
   @IsNotEmpty()
   @IsString()
   foto : string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  numeroArete : string | null;
 
   @IsNotEmpty()
   @IsString()
@@ -48,5 +55,9 @@ export class CreateRegistroAnimaleDto {
   @IsNotEmpty()
   @IsString()
   estadoReproductivo : string;
+
+  @IsNotEmpty()
+  @IsObject()
+  categoriaAniaml: CategoriaAnimale[];
 
 }

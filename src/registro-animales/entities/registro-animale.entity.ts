@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { CategoriaAnimale } from 'src/categoria-animales/entities/categoria-animale.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne } from 'typeorm';
 @Entity()
 export class RegistroAnimale {
     @PrimaryGeneratedColumn()
@@ -6,6 +7,9 @@ export class RegistroAnimale {
   
     @Column()
     foto : string;
+
+    @Column({nullable: true})
+    numeroArete : string | null;
 
     @Column()
     fechaNacimiento : string;
@@ -33,5 +37,9 @@ export class RegistroAnimale {
     
     @Column()
     estadoReproductivo : string;
+
+    @ManyToOne(() => CategoriaAnimale, (categoriaAnimale) => categoriaAnimale.categoriaAniaml)
+    
+    categoriaAniaml: CategoriaAnimale[];
     
 }
