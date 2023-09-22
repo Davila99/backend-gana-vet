@@ -1,26 +1,58 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRegistroAnimaleDto } from './dto/create-registro-animale.dto';
 import { UpdateRegistroAnimaleDto } from './dto/update-registro-animale.dto';
+import { RegistroAnimale } from './entities/registro-animale.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class RegistroAnimalesService {
-  create(createRegistroAnimaleDto: CreateRegistroAnimaleDto) {
-    return 'This action adds a new registroAnimale';
+  constructor(
+    @InjectRepository(RegistroAnimale)
+    private readonly registroAnimaleRepository: Repository<RegistroAnimale>,
+  ) {}
+
+  async create(createRegistroAnimaleDto: CreateRegistroAnimaleDto) {
+    const { razaAnimal, categoriaAnimal, ...CreateRegistroAnimaleDto } =
+      createRegistroAnimaleDto;
+    const newRegistroAnimale = this.registroAnimaleRepository.create({
+      categoriaAnimal,
+      razaAnimal,
+      ...CreateRegistroAnimaleDto,
+    });
+
+    return await this.registroAnimaleRepository.save(newRegistroAnimale);
   }
 
-  findAll() {
-    return `This action returns all registroAnimales`;
+  async findAll(): Promise<RegistroAnimale[]> {
+    return await this.registroAnimaleRepository.find({
+      relations: ['razaAnimal', 'categoriaAnimal'],
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} registroAnimale`;
+  findOne(id: number): Promise<RegistroAnimale> {
+    return this.registroAnimaleRepository
+      .createQueryBuilder('registroAnimale')
+      .where('registroAnimale.id = :id', { id })
+      .leftJoinAndSelect('registroAnimale.razaAnimal', 'razaAnimal')
+      .leftJoinAndSelect('registroAnimale.categoriaAnimal', 'categoriaAnimal')
+      .getOne();
   }
 
-  update(id: number, updateRegistroAnimaleDto: UpdateRegistroAnimaleDto) {
-    return `This action updates a #${id} registroAnimale`;
+ async update(id: number, RegistroAnimale) {
+    const findRegistroAnimale = await this.findOne(id);
+    const updateRegistroAnimale =  await this.registroAnimaleRepository.merge(
+      findRegistroAnimale,
+      RegistroAnimale,
+    );
+    return await this.registroAnimaleRepository.save(updateRegistroAnimale);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} registroAnimale`;
+async  remove(id: number):Promise<void> {
+    const findRegistroAnimale = await this.findOne(id);
+    if (findRegistroAnimale) {
+      throw new Error(`Registro con id ${id} no encontrado`);
+    }
+    await this.registroAnimaleRepository.delete(id);
   }
 }
