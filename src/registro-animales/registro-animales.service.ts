@@ -48,11 +48,8 @@ export class RegistroAnimalesService {
     return await this.registroAnimaleRepository.save(updateRegistroAnimale);
   }
 
-async  remove(id: number):Promise<void> {
-    const findRegistroAnimale = await this.findOne(id);
-    if (findRegistroAnimale) {
-      throw new Error(`Registro con id ${id} no encontrado`);
-    }
-    await this.registroAnimaleRepository.delete(id);
+async  remove(id: number):Promise<RegistroAnimale> {
+     const registroAnimales = await this.findOne(id);
+      return await this.registroAnimaleRepository.remove(registroAnimales);
   }
 }
