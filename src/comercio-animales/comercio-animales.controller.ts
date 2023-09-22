@@ -1,15 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ComercioAnimalesService } from './comercio-animales.service';
 import { CreateComercioAnimaleDto } from './dto/create-comercio-animale.dto';
 import { UpdateComercioAnimaleDto } from './dto/update-comercio-animale.dto';
 
 @Controller('comercio-animales')
 export class ComercioAnimalesController {
-  constructor(private readonly comercioAnimalesService: ComercioAnimalesService) {}
+  constructor(
+    private readonly comercioAnimalesService: ComercioAnimalesService,
+  ) {}
 
   @Post('/')
- async create(@Body() createComercioAnimaleDto: CreateComercioAnimaleDto) {
-  
+  async create(@Body() createComercioAnimaleDto: CreateComercioAnimaleDto) {
     const comercioAnimales = await this.comercioAnimalesService.create(
       createComercioAnimaleDto,
     );
@@ -18,12 +27,15 @@ export class ComercioAnimalesController {
       message: 'Registro creado correctamente',
     };
     return data;
-  
   }
 
-  @Get()
-  findAll() {
-    return this.comercioAnimalesService.findAll();
+  @Get('/')
+  async findAll() {
+    const comercioAnimales = await this.comercioAnimalesService.findAll();
+    const data = {
+      data: comercioAnimales,
+    };
+    return data;
   }
 
   @Get(':id')
@@ -32,7 +44,10 @@ export class ComercioAnimalesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateComercioAnimaleDto: UpdateComercioAnimaleDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateComercioAnimaleDto: UpdateComercioAnimaleDto,
+  ) {
     return this.comercioAnimalesService.update(+id, updateComercioAnimaleDto);
   }
 
