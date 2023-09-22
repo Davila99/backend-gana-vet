@@ -22,9 +22,11 @@ export class ComercioAnimalesService {
     // });
   }
 
-  findAll() {
-    return `This action returns all comercioAnimales`;
-  }
+  async findAll():Promise<ComercioAnimale[]> {
+    return await this.comercioAnimaleRepository.find({
+       relations: ['razaAnimal', 'categoriaAnimal'],
+     });
+ }
 
   findOne(id: number) {
     return `This action returns a #${id} comercioAnimale`;
