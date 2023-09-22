@@ -7,9 +7,18 @@ import { UpdateComercioAnimaleDto } from './dto/update-comercio-animale.dto';
 export class ComercioAnimalesController {
   constructor(private readonly comercioAnimalesService: ComercioAnimalesService) {}
 
-  @Post()
-  create(@Body() createComercioAnimaleDto: CreateComercioAnimaleDto) {
-    return this.comercioAnimalesService.create(createComercioAnimaleDto);
+  @Post('/')
+ async create(@Body() createComercioAnimaleDto: CreateComercioAnimaleDto) {
+  
+    const comercioAnimales = await this.comercioAnimalesService.create(
+      createComercioAnimaleDto,
+    );
+    const data = {
+      data: comercioAnimales,
+      message: 'Registro creado correctamente',
+    };
+    return data;
+  
   }
 
   @Get()
