@@ -1,6 +1,6 @@
 import { CategoriaAnimale } from 'src/categoria-animales/entities/categoria-animale.entity';
 import { Raza } from 'src/razas/entities/raza.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 @Entity()
 export class ComercioAnimale {
     @PrimaryGeneratedColumn()
@@ -25,7 +25,7 @@ export class ComercioAnimale {
     propositoVenta : string;
 
     @Column()
-    edad : string;
+    edad : number;
 
     @Column()
     peso : number;

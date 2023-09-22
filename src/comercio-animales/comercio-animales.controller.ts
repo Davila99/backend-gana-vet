@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ComercioAnimalesService } from './comercio-animales.service';
 import { CreateComercioAnimaleDto } from './dto/create-comercio-animale.dto';
@@ -18,8 +19,8 @@ export class ComercioAnimalesController {
   ) {}
 
   @Post('/')
-  async create(@Body() createComercioAnimaleDto: CreateComercioAnimaleDto) {
-    const comercioAnimales = await this.comercioAnimalesService.create(
+   create(@Body() createComercioAnimaleDto: CreateComercioAnimaleDto) {
+    const comercioAnimales = this.comercioAnimalesService.create(
       createComercioAnimaleDto,
     );
     const data = {
@@ -39,20 +40,38 @@ export class ComercioAnimalesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.comercioAnimalesService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const comercioAnimales = await this.comercioAnimalesService.findOne(id);
+    const data = {
+      data: comercioAnimales,
+      message: 'Registro encontrado',
+    };
+    return data;
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
+async  update(
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateComercioAnimaleDto: UpdateComercioAnimaleDto,
   ) {
-    return this.comercioAnimalesService.update(+id, updateComercioAnimaleDto);
+    const comercioAnimales = await this.comercioAnimalesService.update(
+      id,
+      updateComercioAnimaleDto,
+    );
+    const data = {
+      data: comercioAnimales,
+      message: 'Registro actualizado correctamente',
+    };
+    return data;
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.comercioAnimalesService.remove(+id);
+  @Delete('/:id')
+ async remove(@Param('id') id: number) {
+  const comercioAnimales = await this.comercioAnimalesService.remove(id);
+  const data = {
+    data: comercioAnimales,
+    message: 'ok',
+  };
+  return data;
   }
 }

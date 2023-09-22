@@ -15,11 +15,14 @@ export class ComercioAnimalesService {
   async create(createComercioAnimaleDto: CreateComercioAnimaleDto) {
     const { razaAnimal, categoriaAnimal, ...CreateComercioAnimaleDto } =
       createComercioAnimaleDto;
-    // const newComercioAnimale = this.comercioAnimaleRepository.create({
-    //   categoriaAnimal,
-    //   razaAnimal,
-    //   ...CreateComercioAnimaleDto,
-    // });
+    const newComercioAnimale = this.comercioAnimaleRepository.create({
+      categoriaAnimal,
+      razaAnimal,
+      ...CreateComercioAnimaleDto,
+    });
+
+    return await this.comercioAnimaleRepository.save(newComercioAnimale);
+    
   }
 
   async findAll():Promise<ComercioAnimale[]> {
@@ -28,15 +31,25 @@ export class ComercioAnimalesService {
      });
  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} comercioAnimale`;
+ async findOne(id: number):Promise<ComercioAnimale> {
+    return this.comercioAnimaleRepository.createQueryBuilder('comercioAnimale')
+      .where('comercioAnimale.id = :id', { id })
+      .leftJoinAndSelect('comercioAnimale.razaAnimal', 'razaAnimal')
+      .leftJoinAndSelect('comercioAnimale.categoriaAnimal', 'categoriaAnimal')
+      .getOne();
   }
 
-  update(id: number, updateComercioAnimaleDto: UpdateComercioAnimaleDto) {
-    return `This action updates a #${id} comercioAnimale`;
+ async update(id: number, updateComercioAnimaleDto: UpdateComercioAnimaleDto) {
+    const findComercioAnimale = await this.findOne(id);
+    const updateComercioAnimale =  await this.comercioAnimaleRepository.merge(
+      findComercioAnimale,
+      updateComercioAnimaleDto,
+    );
+    return await this.comercioAnimaleRepository.save(updateComercioAnimale);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} comercioAnimale`;
+ async remove(id: number):Promise<ComercioAnimale> {
+    const comercioAnimales = await this.findOne(id);
+     return await this.comercioAnimaleRepository.remove(comercioAnimales);
   }
 }

@@ -66,7 +66,7 @@ export class RegistroAnimalesController {
   }
 
   @Delete('/:id')
-  remove(@Param('id') id: number) {
+ async remove(@Param('id') id: number) {
     const registroAnimales = this.registroAnimalesService.remove(+id);
     const data = {
       data: registroAnimales,

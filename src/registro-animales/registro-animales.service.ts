@@ -30,7 +30,7 @@ export class RegistroAnimalesService {
     });
   }
 
-  findOne(id: number): Promise<RegistroAnimale> {
+ async findOne(id: number): Promise<RegistroAnimale> {
     return this.registroAnimaleRepository
       .createQueryBuilder('registroAnimale')
       .where('registroAnimale.id = :id', { id })
@@ -48,7 +48,7 @@ export class RegistroAnimalesService {
     return await this.registroAnimaleRepository.save(updateRegistroAnimale);
   }
 
-async  remove(id: number):Promise<RegistroAnimale> {
+ async  remove(id: number):Promise<RegistroAnimale> {
      const registroAnimales = await this.findOne(id);
       return await this.registroAnimaleRepository.remove(registroAnimales);
   }
