@@ -70,7 +70,7 @@ async  update(
   const comercioAnimales = await this.comercioAnimalesService.remove(id);
   const data = {
     data: comercioAnimales,
-    message: 'ok',
+    message: 'Eliminado correctamente',
   };
   return data;
   }

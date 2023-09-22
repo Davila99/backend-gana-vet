@@ -60,7 +60,7 @@ export class RegistroAnimalesController {
     );
     const data = {
       data: registroAnimales,
-      message: 'ok',
+      message: 'Registro actualizado correctamente',
     };
     return data;
   }
