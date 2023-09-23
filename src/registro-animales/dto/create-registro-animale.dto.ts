@@ -4,6 +4,7 @@ import {
   IsNumberString,
   IsOptional,
   IsObject,
+  IsNumber,
 } from 'class-validator';
 import { CategoriaAnimale } from 'src/categoria-animales/entities/categoria-animale.entity';
 import { Raza } from 'src/razas/entities/raza.entity';
@@ -46,8 +47,8 @@ export class CreateRegistroAnimaleDto {
   registroVacunas : string;
 
   @IsNotEmpty()
-  @IsString()
-  peso : string;
+  @IsNumber()
+  peso : number;
 
   @IsNotEmpty()
   @IsString()

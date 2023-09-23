@@ -32,7 +32,7 @@ export class RegistroAnimale {
     registroVacunas : string;
 
     @Column()
-    peso : string;
+    peso : number;
 
     @Column()
     historialClinico : string;
