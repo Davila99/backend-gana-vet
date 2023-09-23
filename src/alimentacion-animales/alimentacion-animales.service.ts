@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAlimentacionAnimaleDto } from './dto/create-alimentacion-animale.dto';
 import { UpdateAlimentacionAnimaleDto } from './dto/update-alimentacion-animale.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { AlimentacionAnimale } from './entities/alimentacion-animale.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AlimentacionAnimalesService {
-  create(createAlimentacionAnimaleDto: CreateAlimentacionAnimaleDto) {
-    return 'This action adds a new alimentacionAnimale';
+
+  constructor(
+    @InjectRepository(AlimentacionAnimale)
+    private readonly alimentacionAnimaleRepository: Repository<AlimentacionAnimale>,
+  ) {}
+ async create(createAlimentacionAnimaleDto: CreateAlimentacionAnimaleDto) {
+    const alimentacionAnimale = this.alimentacionAnimaleRepository.create(createAlimentacionAnimaleDto);
+    return await this.alimentacionAnimaleRepository.save(alimentacionAnimale);
   }
 
-  findAll() {
-    return `This action returns all alimentacionAnimales`;
+ async findAll():Promise<AlimentacionAnimale[]> {
+    return await this.alimentacionAnimaleRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} alimentacionAnimale`;
+ async findOne(id: number):Promise<AlimentacionAnimale> {
+    const alimentacionAnimale = await this.alimentacionAnimaleRepository.findOne(
+      {where: {id: id}}
+    );
+    return alimentacionAnimale;
   }
 
-  update(id: number, updateAlimentacionAnimaleDto: UpdateAlimentacionAnimaleDto) {
-    return `This action updates a #${id} alimentacionAnimale`;
+ async update(id: number, updateAlimentacionAnimaleDto: UpdateAlimentacionAnimaleDto):Promise<AlimentacionAnimale> {
+    const alimentacionAnimale = await this.alimentacionAnimaleRepository.preload({
+      id: id,
+      ...updateAlimentacionAnimaleDto,
+    });
+    return await this.alimentacionAnimaleRepository.save(alimentacionAnimale);
+
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} alimentacionAnimale`;
+async  remove(id: number):Promise<AlimentacionAnimale> {
+    const alimentacionAnimale = await this.alimentacionAnimaleRepository.findOne(
+      {where: {id: id}}
+    );
+    return await this.alimentacionAnimaleRepository.remove(alimentacionAnimale);
   }
 }
