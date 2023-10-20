@@ -20,7 +20,7 @@ import { Raza } from './razas/entities/raza.entity';
     port: 5432,
     username: 'postgres',
     password: 'root',
-    database: 'ganavet',
+    database: 'Ganavets2',
     entities: [CategoriaAnimale, RegistroAnimale,ComercioAnimale,AlimentacionAnimale,Raza],
     synchronize: true,
   }), CategoriaAnimalesModule, RegistroAnimalesModule, ComercioAnimalesModule, AlimentacionAnimalesModule, RazasModule

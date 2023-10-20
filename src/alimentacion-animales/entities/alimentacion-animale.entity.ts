@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { type } from 'os';
+import { Entity, Column, PrimaryGeneratedColumn, Double } from 'typeorm';
 @Entity()
 export class AlimentacionAnimale {
   @PrimaryGeneratedColumn()
@@ -7,9 +8,9 @@ export class AlimentacionAnimale {
   @Column()
   nombreProducto: string;
 
-  @Column()
+  @Column( {type: "decimal"})
   energia: number;
 
-  @Column()
+  @Column( {type: "decimal"})
   proteina: number;
 }

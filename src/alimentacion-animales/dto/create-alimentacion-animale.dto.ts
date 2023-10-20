@@ -4,6 +4,7 @@ import {
   IsNumberString,
   IsOptional,
   IsNumber,
+  IsDecimal,
 } from 'class-validator';
 export class CreateAlimentacionAnimaleDto {
   @IsOptional()
@@ -16,9 +17,11 @@ export class CreateAlimentacionAnimaleDto {
 
   @IsNotEmpty()
   @IsNumber()
+  @IsDecimal()
   energia: number;
 
   @IsNotEmpty()
   @IsNumber()
+  @IsDecimal()
   proteina: number;
 }
