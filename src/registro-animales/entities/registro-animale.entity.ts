@@ -23,12 +23,6 @@ export class RegistroAnimale {
     sexo : string;
 
     @Column()
-    color : string;
-
-    @Column()
-    padres : string;
-
-    @Column()
     registroVacunas : string;
 
     @Column()

@@ -36,14 +36,6 @@ export class CreateRegistroAnimaleDto {
 
   @IsNotEmpty()
   @IsString()
-  color : string;
-
-  @IsNotEmpty()
-  @IsString()
-  padres : string;
-
-  @IsNotEmpty()
-  @IsString()
   registroVacunas : string;
 
   @IsNotEmpty()
